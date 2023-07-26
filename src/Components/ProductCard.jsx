@@ -1,5 +1,22 @@
+import { useNavigate } from "react-router-dom";
+import { addProductToCart } from "../APIRequests/api";
+
 const ProductCard = (props) => {
     const products = props.data;
+
+    const navigator = useNavigate();
+
+    const addToCart = (id) => {
+        if (localStorage.getItem('access_token') == null) {
+            navigator(`/user-login`);
+        } else {
+            (async() => {
+                let response = await addProductToCart(id);
+                navigator(`/user-cart`);
+            })()
+        }
+        
+    }
 
     return (
         <div className="container mx-10 mt-10">
@@ -14,7 +31,7 @@ const ProductCard = (props) => {
                                 <p>{product.short_desc}</p>
                                 <div className="card-actions">
                                     <p className="justify-start font-bold">${product.price}</p>
-                                    <button className="btn btn-primary btn-sm">Add to cart</button>
+                                    <button className="btn btn-primary btn-sm" onClick={() => addToCart(product.id)}>Add to cart</button>
                                 </div>
                             </div>
                         </div>

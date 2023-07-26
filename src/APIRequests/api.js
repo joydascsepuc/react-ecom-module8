@@ -48,3 +48,20 @@ export async function checkLogin(email, otp) {
         return false;
     }
 }
+
+
+export async function addProductToCart(id) {
+    let response = await axios({
+        method: 'get',
+        url: baseURL+'/create-cart/'+id,
+        headers: {
+            'token': localStorage.getItem('access_token') 
+        }
+    });
+
+    if (response.status === 200) {
+        return response.data.msg === "success";
+    } else {
+        return false;
+    }
+}
