@@ -65,3 +65,19 @@ export async function addProductToCart(id) {
         return false;
     }
 }
+
+export async function getCartList() {
+    let response = await axios({
+        method: 'get',
+        url: baseURL+'/cart-list',
+        headers: {
+            'token': localStorage.getItem('access_token') 
+        }
+    });
+
+    if (response.status === 200) {
+        return response.data.msg === "success" ? response.data.data : [];
+    } else {
+        return [];
+    }
+}

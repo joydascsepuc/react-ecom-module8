@@ -12,7 +12,7 @@ const ProductCard = (props) => {
         } else {
             (async() => {
                 let response = await addProductToCart(id);
-                navigator(`/user-cart`);
+                response ? <CartList /> : alert('Not added to cart');
             })()
         }
         
