@@ -1,18 +1,22 @@
 import { useState } from "react"
 import Layout from "../Layout/Layout"
 import { sendOTP } from "../APIRequests/api";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
 
     let [email, setEmail] = useState('');
 
+    // Using for navigate to another page
+    const navigate = useNavigate();
+
     const getOTP = (e) => {
         e.preventDefault();
         (async() => {
             let response = await sendOTP(email);
-            console.log(response);
             if(response) {
                 // redirect
+                navigate(`/otp?email=${email}`);
             } else {
                 alert('Something wrong with api');
             }

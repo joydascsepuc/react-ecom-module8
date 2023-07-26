@@ -31,3 +31,20 @@ export async function sendOTP(email) {
         return false;
     }
 }
+
+export async function checkLogin(email, otp) {
+    let response = await axios({
+        method: 'post',
+        url: baseURL+'/verify-login',
+        data: {
+            UserEmail: email,
+            OTP: otp
+        }
+    });
+
+    if (response.status === 200) {
+        return response.data.msg === "success" ? response.data : false;
+    } else {
+        return false;
+    }
+}
