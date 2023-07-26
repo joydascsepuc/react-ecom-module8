@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Layout from "../Layout/Layout"
 import { checkLogin } from "../APIRequests/api";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 const OTPPage = () => {
 
@@ -11,11 +11,20 @@ const OTPPage = () => {
     const [searchParam] = useSearchParams();
     const email = searchParam.get('email');
 
+    // using navigation
+    const navigate = useNavigate();
+
     const verifyOTP = (e) => {
         e.preventDefault();
         (async() => {
             let response = await checkLogin(email, otp);
-            console.log(response);
+            // checking response
+            if (response) {
+                // saving the token to localStorage
+                localStorage.setItem('access_token', response.data);
+                // redirecting
+                navigate(`/`);
+            }
         })()   
     }
 
