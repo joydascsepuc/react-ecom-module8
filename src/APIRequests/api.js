@@ -15,3 +15,19 @@ export async function getProducts() {
         return [];
     }
 }
+
+export async function sendOTP(email) {
+    let response = await axios({
+        method: 'post',
+        url: baseURL+'/user-login',
+        data: {
+            UserEmail: email
+        }
+    });
+
+    if (response.status === 200) {
+        return response.data.msg === "success";
+    } else {
+        return false;
+    }
+}
