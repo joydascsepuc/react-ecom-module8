@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { addProductToCart } from "../APIRequests/api";
+import CartPage from "../Pages/CartPage";
 
 const ProductCard = (props) => {
     const products = props.data;
@@ -12,7 +13,7 @@ const ProductCard = (props) => {
         } else {
             (async() => {
                 let response = await addProductToCart(id);
-                response ? <CartList /> : alert('Not added to cart');
+                response ? <CartPage /> : alert('Not added to cart');
             })()
         }
         

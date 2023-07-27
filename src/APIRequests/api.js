@@ -81,3 +81,19 @@ export async function getCartList() {
         return [];
     }
 }
+
+export async function removeProductFromCart(id) {
+    let response = await axios({
+        method: 'get',
+        url: baseURL+'/remove-cart/'+id,
+        headers: {
+            'token': localStorage.getItem('access_token') 
+        }
+    });
+
+    if (response.status === 200) {
+        return response.data.msg === "success";
+    } else {
+        return false;
+    } 
+}

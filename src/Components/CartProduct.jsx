@@ -1,5 +1,22 @@
+import { useNavigate } from "react-router-dom";
+import { removeProductFromCart } from "../APIRequests/api";
+import CartPage from "../Pages/CartPage";
+
 const CartProduct = (props) => {
+
     const products = props.products;
+    const navigator = useNavigate();
+
+    const deleteFromCart = (id) => {
+        if (localStorage.getItem('access_token') == null) {
+            navigator(`/user-login`);
+        } else {
+            (async() => {
+                let response = await removeProductFromCart(id);
+                response ? alert('Removed from cart') : alert('Not removed from cart');
+            })()
+        }
+    }
 
     return (
         <div className="container mx-10 mt-10">

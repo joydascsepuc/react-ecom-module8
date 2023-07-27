@@ -15,7 +15,6 @@ const CartPage = () => {
             (async() => {
                 let response = await getCartList();
                 setList(response);
-                console.log(response);
             })()
         }
     }, [])
